@@ -14,8 +14,8 @@ It depends on
 - youtube-upload to upload files to youtube
 
 
-## Demo
-
+## Demo video
+Click the following thumbnail to view a sample result on YouTube
 [![Video demo of a sample video made with vulva](http://img.youtube.com/vi/60ShAIS3ntQ/0.jpg)](http://www.youtube.com/watch?v=60ShAIS3ntQ)
 
 
