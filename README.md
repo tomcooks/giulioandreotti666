@@ -1,6 +1,6 @@
 # vulva
-## Video Uploader of Linear Video Art
-Vulva is a terminal-based video editor for underpowered netbooks.
+## Vulva uploads linear video art
+Vulva is a terminal-based linear video editor for underpowered netbooks.
 
 It is a set of really badly written BASH scripts that I wrote to simplify trimming, joining and uploading of video files on my sola
 r-powered Eeepc 701 netbook; if you are looking for a more professional solution please use something else (I warmly suggest Shotcu
