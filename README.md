@@ -16,7 +16,8 @@ It depends on
 
 ## Demo
 
-<iframe width="100%" height="315" src="https://www.youtube.com/embed/60ShAIS3ntQ" frameborder="0" allowfullscreen></iframe>
+[![Video demo of a sample video made with vulva](http://img.youtube.com/vi/60ShAIS3ntQ/0.jpg)](http://www.youtube.com/watch?v=60ShAIS3ntQ)
+
 
 
 ## Usage
