@@ -1,0 +1,24 @@
+#!/bin/bash
+# Finds lenght of a video file
+# Part of the Video Uploader of Linear Video Art suite
+
+
+
+FILE=""
+# Make sure we get file name as command line argument
+# Else read it from standard input device
+if [ "$1" == "" ]; then
+   FILE="/dev/stdin"
+else
+   FILE="$1"
+   # make sure file exist and readable
+   if [ ! -f $FILE ]; then
+  	echo "$FILE : does not exists"
+  	exit 1
+   elif [ ! -r $FILE ]; then
+  	echo "$FILE: can not read"
+  	exit 2
+   fi
+fi
+ffmpeg -i "$FILE" 2>&1 | grep "Duration" | cut -d ' ' -f 4| sed s/,//g
+

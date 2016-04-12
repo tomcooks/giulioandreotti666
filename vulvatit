@@ -1,0 +1,66 @@
+#!/bin/bash
+# Create titlescreens for videos
+# Part of the Video Uploader of Linear Video Art suite
+
+usage()
+{
+cat << EOF
+usage: $0 options file
+
+Create titles
+
+OPTIONS:
+   -s     Size of the titlecard, in WxH form (e.g. 1080x720, 1920x1080, etc.)
+   -t     Title
+EOF
+}
+SIZE=
+WIDTH=
+HEIGHT=
+TITLE=
+
+while getopts ":s:t:" opt; do
+        case $opt in
+                s)
+                        SIZE="$OPTARG"
+                        ;;
+                t)
+                        TITLE="$OPTARG"
+                        ;;
+                \?)
+                        echo "Invalid option: -$OPTARG" >&2
+                        usage
+                        exit 1
+                        ;;
+                :)
+                        echo "Option -$OPTARG requires an argument." >&2
+                        usage
+                        exit 1
+                        ;;
+        esac
+done
+shift $(($OPTIND-1))
+
+if [ -z "$TITLE" ]
+then
+	echo "You must provide a title"
+	exit 1
+fi
+if [ -z "$SIZE" ]
+then
+	echo "You must provide a size"
+	exit 1
+fi
+WIDTH=$(echo "$SIZE"|cut -d 'x' -f 1)
+HEIGHT=$(echo "$SIZE"|cut -d 'x' -f 2)
+#convert -size 1820x480 -background transparent -fill white -font Oswald-Bold -gravity Center caption:'Eeepc 701 video editing test with imagemagick and mlt framework' title.png 
+SIZEMARGINW=$(($WIDTH-50))
+SIZEMARGINH=$(($HEIGHT-360))
+FONTSIZE="${SIZEMARGINW}x${SIZEMARGINH}"
+convert -size "$SIZE" canvas:black vaginatitlebg.png
+composite -compose Copy -gravity north -geometry +0-10 /usr/share/vulva/tomcookslogo.jpg vaginatitlebg.png vaginatitlebg.png
+composite -compose Copy -gravity south -geometry +0+10 /usr/share/vulva/tomcooksurl.png vaginatitlebg.png vaginatitlebg.png
+convert -size ${FONTSIZE} -background transparent -fill white -gravity Center -font Oswald-Bold -interline-spacing -50 caption:"$TITLE" vaginatitlefont.png 
+composite -size ${SIZE} -gravity center -geometry +0+50 vaginatitlefont.png vaginatitlebg.png vaginatitle_done.png
+rm vaginatitlebg.png vaginatitlefont.png
+melt vaginatitle_done.png length=150 in=0 -consumer avformat:00title_$(date +%s).mp4 vcodec=libx264 b=5000k

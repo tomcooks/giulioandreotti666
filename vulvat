@@ -1,0 +1,89 @@
+#!/bin/bash
+# Trims file
+# Part of the Video Uploader of Linear Video Art suite
+
+
+usage()
+{
+cat << EOF
+usage: $0 options file
+
+Trim the puccudeasy
+
+OPTIONS:
+   -s     Beginning of the trimming in seconds
+   -t      Length of trimming in seconds
+   -T     [optional] instead of -t specify end of trimming in seconds
+EOF
+}
+
+START=
+LENGTH=
+END=
+FILE=
+
+while getopts ":s:t:T:" opt; do
+	case $opt in
+		s)
+			echo "-s was triggered, START parameter: $OPTARG" >&2
+			START="$OPTARG"
+			;;
+		t)
+			echo "-t was triggered, LENGTH parameter: $OPTARG" >&2
+			LENGTH="$OPTARG"
+			;;
+		T)
+			echo "-T was triggered, END parameter: $OPTARG" >&2
+			END="$OPTARG"
+			;;
+		\?)
+			echo "Invalid option: -$OPTARG" >&2
+			usage
+			exit 1
+			;;
+		:)
+			echo "Option -$OPTARG requires an argument." >&2
+			usage
+			exit 1
+			;;
+	esac
+done
+shift $(($OPTIND-1))
+#echo "START=$START"
+#echo "LENGTH=$LENGTH"
+#echo "END=$END"
+#echo "FILE=$FILE"
+#exit 1
+
+# Make sure we get file name as command line argument
+# Else read it from standard input device
+if [ "$1" == "" ]; then
+   #FILE="/dev/stdin"
+   usage
+else
+   FILE="$1"
+   # make sure file exist and readable
+   if [ ! -f $FILE ]; then
+  	echo "$FILE : does not exists"
+  	exit 1
+   elif [ ! -r $FILE ]; then
+  	echo "$FILE: can not be read"
+  	exit 2
+   fi
+fi
+
+#ffmpeg -ss ${ss} -i "$FILE" -to ${to} -c copy ${FILE}TRIM.mp4 
+if [[ -z "$START" ]]
+then
+	echo "option -s not set, starting at beginning of file"
+	START=0
+fi
+if [ -z "$END" ] && [ ! -z "$LENGTH" ]
+then
+	echo "end not set, lenght set"
+	ffmpeg -ss ${START} -i "$FILE" -t "$LENGTH" -c copy -y -async 1 ${FILE}TRIM.mp4 
+elif [ -z "$LENGTH" ] && [ ! -z "$END" ]
+then
+	echo "length not set, end set"
+	ffmpeg -ss ${START} -i "$FILE" -to "$END" -c copy -y -async 1 ${FILE}TRIM.mp4 
+fi

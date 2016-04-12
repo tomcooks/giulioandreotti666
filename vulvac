@@ -1,0 +1,27 @@
+#!/bin/bash
+# Check that file starts with keyframe
+# Part of the Video Uploader of Linear Video Art suite
+
+
+FILE=
+KEYFSTART=
+KEYFEND=
+for i in "$@"
+do
+	FILE="$i"
+	TEMPFILE="$i"_$(date +%s).txt
+	ffprobe -show_frames -select_streams v:0 -read_intervals %+1 -v quiet "$i" > "$TEMPFILE"
+	KEYSTART=$(head -n 25 $TEMPFILE|grep key)
+	KEYFEND=$(tail -n 25 $TEMPFILE|grep key)
+	if [ "$KEYSTART" = "key_frame=1" ] && [ "$KEYFEND" = "key_frame=1" ]
+	then
+		echo "GOOD $i first and last frame are keyframe"
+		rm "$TEMPFILE"
+	elif [ "$KEYSTART" = "key_frame=1" ]
+	then
+		echo "GOOD $i first is keyframe"
+	else
+		echo "BAD! $i"
+		#cat "$TEMPFILE"
+	fi
+done
