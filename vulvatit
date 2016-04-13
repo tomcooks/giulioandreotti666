@@ -63,4 +63,4 @@ composite -compose Copy -gravity south -geometry +0+10 /usr/share/vulva/tomcooks
 convert -size ${FONTSIZE} -background transparent -fill white -gravity Center -font Oswald-Bold -interline-spacing -50 caption:"$TITLE" vaginatitlefont.png 
 composite -size ${SIZE} -gravity center -geometry +0+50 vaginatitlefont.png vaginatitlebg.png vaginatitle_done.png
 rm vaginatitlebg.png vaginatitlefont.png
-melt vaginatitle_done.png length=150 in=0 -consumer avformat:00title_$(date +%s).mp4 vcodec=libx264 b=5000k
+melt vaginatitle_done.png length=150 in=0 -consumer avformat:00title_$(date +%s).mp4 width="$WIDTH" height="$HEIGHT" vcodec=libx264 b=5000k
