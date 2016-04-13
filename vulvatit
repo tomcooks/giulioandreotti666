@@ -61,6 +61,6 @@ convert -size "$SIZE" canvas:black vulvatitlebg.png
 composite -compose Copy -gravity north -geometry +0-10 /usr/share/vulva/tomcookslogo.jpg vulvatitlebg.png vulvatitlebg.png
 composite -compose Copy -gravity south -geometry +0+10 /usr/share/vulva/tomcooksurl.png vulvatitlebg.png vulvatitlebg.png
 convert -size ${FONTSIZE} -background transparent -fill white -gravity Center -font Oswald-Bold -interline-spacing -50 caption:"$TITLE" vulvatitlefont.png 
-composite -size ${SIZE} -gravity center -geometry +0+50 vulvatitlefont.png vaginatitlebg.png vaginatitle_done.png
-rm vulvatitlebg.png vaginatitlefont.png
+composite -size ${SIZE} -gravity center -geometry +0+50 vulvatitlefont.png vulvatitlebg.png vulvatitle_done.png
+rm vulvatitlebg.png vulvatitlefont.png
 melt vulvatitle_done.png length=150 in=0 -consumer avformat:00title_$(date +%s).mp4 width="$WIDTH" height="$HEIGHT" vcodec=libx264 b=5000k
