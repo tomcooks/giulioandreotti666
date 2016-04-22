@@ -36,19 +36,20 @@ fi
 
 for i in "$FILE"
 do
-	echo "-----------------------------------------------------------------"
-	echo "Creating transport file for $i"
-	echo "-----------------------------------------------------------------"
+	#echo "-----------------------------------------------------------------"
+	#echo "Creating transport file for $i"
+	#echo "-----------------------------------------------------------------"
 	#echo ffmpeg -i "$i" -c copy -bsf:v h264_mp4toannexb -f mpegts "$i".ts
 	#exit 1
-	ffmpeg -i "$i" -c copy -bsf:v h264_mp4toannexb -f mpegts "$i".ts
+	#ffmpeg -i "$i" -c copy -bsf:v h264_mp4toannexb -f mpegts "$i".ts
 done
-	echo "Transport file done now building ts files list:"
-	printf "file '%s'\n" ./*.mp4 > tempmytransportlist.txt
+	#echo "Transport file done now building ts files list:"
+	#printf "file '%s'\n" ./*.mp4 > tempmytransportlist.txt
 
 	#ffmpeg -f concat -safe 0 -i tempmytransportlist.txt -c copy -bsf:a aac_adtstoasc filefinal.mp4
 	#ffmpeg -f concat -safe 0 -i tempmytransportlist.txt -c copy filefinal.mp4
-	melt *TRIM.mp4 -consumer avformat:filefinal.mp4 vcodec=libx264 vb=5M acodec=aac ab=128k
+	#melt *TRIM.mp4 -consumer avformat:filefinal.mp4 vcodec=libx264 vb=5M acodec=aac ab=128k
+	melt "$1" -consumer avformat:filefinal.mp4 vcodec=libx264 vb=5M acodec=aac ab=128k
 	
-	rm tempmytransportlist.txt
-	rm *.ts
+	#rm tempmytransportlist.txt
+	#rm *.ts
