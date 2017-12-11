@@ -2,7 +2,7 @@ This project used to be called "VULVA - Vulva Uploads Linear Video Art", "wrappe
 I have understood that some people might have found this edgy name offensive, so I have decided to r**GIULIO ANDREOTTI****GIULIO ANDREOTTI****GIULIO ANDREOTTI**
 
 # GIULIO ANDREOTTI
-![PENTAPARTITO](https://raw.githubusercontent.com/tomcooks/giulioandreotti666/Giulio_Andreotti.jpg)
+![PENTAPARTITO](https://raw.githubusercontent.com/tomcooks/giulioandreotti666/blob/master/Giulio_Andreotti.jpg?)
 
 GIULIO ANDREOTTI is a terminal-based linear video editor for underpowered netbooks.
 
